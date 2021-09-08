@@ -42,71 +42,68 @@ function createList() {
 
       draggable_list.appendChild(listItem);
     });
-    addEventListeners()
+  addEventListeners();
 }
-function dragStart(){
+function dragStart() {
   // console.log('Event:', 'dragstart')
-  dragStartIndex = this.closest('li').getAttribute('data-index');
+  dragStartIndex = this.closest("li").getAttribute("data-index");
   // console.log(dragStartIndex)
 }
-function dragEnter(){
+function dragEnter() {
   // console.log('Event:', 'dragenter')
-  this.classList.add('over')
+  this.classList.add("over");
 }
-function dragLeave(){
+function dragLeave() {
   // console.log('Event:', 'dragleave')
-  this.classList.remove('over')
-
+  this.classList.remove("over");
 }
-function dragOver(e){
+function dragOver(e) {
   // console.log('Event:', 'dragover')
   e.preventDefault();
 }
-function dragDrop(){
+function dragDrop() {
   // console.log('Event:', 'dragdrop')
-  const dragEndIndex = +this.getAttribute('data-index')
+  const dragEndIndex = +this.getAttribute("data-index");
   swapItems(dragStartIndex, dragEndIndex);
 
-  this.classList.remove('over')
+  this.classList.remove("over");
 }
 // swap list items that are drag and drop
-function swapItems (fromIndex, toIndex) {
-  const itemOne = listItems[fromIndex].querySelector('.draggable')
-  const itemTwo = listItems[toIndex].querySelector('.draggable')
-  
+function swapItems(fromIndex, toIndex) {
+  const itemOne = listItems[fromIndex].querySelector(".draggable");
+  const itemTwo = listItems[toIndex].querySelector(".draggable");
+
   listItems[fromIndex].appendChild(itemTwo);
-  listItems[toIndex].appendChild(itemOne)
+  listItems[toIndex].appendChild(itemOne);
 }
 
 // check the order of list items
 function checkOrder() {
   listItems.forEach((listItem, index) => {
-    const personName = listItem.querySelector('.draggable').innerText.trim();
+    const personName = listItem.querySelector(".draggable").innerText.trim();
 
-
-    if (personName !== richestPeople[index]){
-      listItem.classList.add('wrong')
+    if (personName !== richestPeople[index]) {
+      listItem.classList.add("wrong");
     } else {
-      listItem.classList.remove('wrong');
-      listItem.classList.add('right')
+      listItem.classList.remove("wrong");
+      listItem.classList.add("right");
     }
-  })
-
+  });
 }
 
-function addEventListeners(){
-  const draggables = document.querySelectorAll('.draggable')
-  const dragListItems = document.querySelectorAll('.draggable-list li')
-  
-  draggables.forEach(draggable =>{
-    draggable.addEventListener('dragstart', dragStart)
-  })
-  dragListItems.forEach(item =>{
-    item.addEventListener('dragover', dragOver)
-    item.addEventListener('drop', dragDrop)
-    item.addEventListener('dragenter', dragEnter)
-    item.addEventListener('dragleave', dragLeave)
-  })
+function addEventListeners() {
+  const draggables = document.querySelectorAll(".draggable");
+  const dragListItems = document.querySelectorAll(".draggable-list li");
+
+  draggables.forEach((draggable) => {
+    draggable.addEventListener("dragstart", dragStart);
+  });
+  dragListItems.forEach((item) => {
+    item.addEventListener("dragover", dragOver);
+    item.addEventListener("drop", dragDrop);
+    item.addEventListener("dragenter", dragEnter);
+    item.addEventListener("dragleave", dragLeave);
+  });
 }
 
-check.addEventListener('click', checkOrder)
+check.addEventListener("click", checkOrder);
